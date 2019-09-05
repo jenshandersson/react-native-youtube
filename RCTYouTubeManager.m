@@ -35,7 +35,7 @@ RCT_EXPORT_METHOD(execute:(nonnull NSNumber *)reactTag command:(nonnull NSString
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         RCTYouTube *youtube = (RCTYouTube*)viewRegistry[reactTag];
         if ([youtube isKindOfClass:[RCTYouTube class]]) {
-            [youtube.webView stringByEvaluatingJavaScriptFromString:comman];
+            [youtube.webView stringByEvaluatingJavaScriptFromString:command];
         } else {
             RCTLogError(@"Cannot execute: %@ (tag #%@) is not RCTYouTube", youtube, reactTag);
         }
