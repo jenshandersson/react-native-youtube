@@ -67,7 +67,7 @@ export default class ReactNativeYouTubeExample extends React.Component {
             this.setState({ fullscreen: e.isFullscreen });
           }}
           onProgress={e => {
-            this.setState({ duration: e.duration, currentTime: e.currentTime });
+            this.setState({ currentTime: e.currentTime });
           }}
         />
 
@@ -169,7 +169,7 @@ export default class ReactNativeYouTubeExample extends React.Component {
             onPress={() => {
               if (this._youTubeRef.current) {
                 this._youTubeRef.current
-                  .videosIndex()
+                  .getVideosIndex()
                   .then(index => this.setState({ videosIndex: index }))
                   .catch(errorMessage => this.setState({ error: errorMessage }));
               }
@@ -189,20 +189,37 @@ export default class ReactNativeYouTubeExample extends React.Component {
           </View>
         )}
 
-        {/* Update Progress & Duration (Android) */}
-        {Platform.OS === 'android' && (
+        {/* Get Duration (iOS) */}
+        {Platform.OS === 'ios' && (
           <View style={styles.buttonGroup}>
             <Button
-              title="Update Progress & Duration (Android)"
+              title="Get Duration (iOS)"
               onPress={() => {
                 if (this._youTubeRef.current) {
                   this._youTubeRef.current
-                    .currentTime()
+                    .getDuration()
+                    .then(duration => this.setState({ duration }))
+                    .catch(errorMessage => this.setState({ error: errorMessage }));
+                }
+              }}
+            />
+          </View>
+        )}
+
+        {/* Get Progress & Duration (Android) */}
+        {Platform.OS === 'android' && (
+          <View style={styles.buttonGroup}>
+            <Button
+              title="Get Progress & Duration (Android)"
+              onPress={() => {
+                if (this._youTubeRef.current) {
+                  this._youTubeRef.current
+                    .getCurrentTime()
                     .then(currentTime => this.setState({ currentTime }))
                     .catch(errorMessage => this.setState({ error: errorMessage }));
 
                   this._youTubeRef.current
-                    .duration()
+                    .getDuration()
                     .then(duration => this.setState({ duration }))
                     .catch(errorMessage => this.setState({ error: errorMessage }));
                 }
